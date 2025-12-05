@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Christmas Dinner Menu Survey</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 650px;
+        margin: auto;
+        padding: 20px;
+        background: #fafafa;
+    }
+    h1 {
+        text-align: center;
+        color: #b30000;
+    }
+    label {
+        font-weight: bold;
+        margin-top: 15px;
+        display: block;
+    }
+    select, textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        font-size: 16px;
+    }
+    button {
+        background: #b30000;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    button:hover {
+        background: #800000;
+    }
+    .success {
+        padding: 15px;
+        background: #d4edda;
+        color: #155724;
+        margin-top: 20px;
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+<h1>Christmas Dinner Menu Survey</h1>
+
+<form id="surveyForm">
+
+    <label>Starter (Antipasti)</label>
+    <select name="starter" required>
+        <option value="">Select…</option>
+        <option>La salade César</option>
+        <option>La salade de poulpe et fenouil</option>
+        <option>Le tartare de thon à l’Italienne</option>
+        <option>La salade italienne</option>
+        <option>Carpaccio de bœuf Français</option>
+    </select>
+
+    <label>Pasta (optional)</label>
+    <select name="pasta">
+        <option value="">No pasta</option>
+        <option>Pâtes aux truffes</option>
+        <option>Carbonara</option>
+        <option>Alle Vongole</option>
+        <option>Tagliolini ricotta & courgettes</option>
+        <option>Pasta du chef</option>
+        <option>Lasagnes al forno</option>
+        <option>Napolitaines & stracciatella</option>
+        <option>Alla putanesca</option>
+        <option>Pesto à la pistache</option>
+        <option>Poivrons & burrata fumée</option>
+        <option>Frutti di mare</option>
+        <option>Lasagnes aux légumes</option>
+    </select>
+
+    <label>Pizza (optional)</label>
+    <select name="pizza">
+        <option value="">No pizza</option>
+        <option>Margherita</option>
+        <option>Melanzana</option>
+        <option>3 fromages</option>
+        <option>Romaine</option>
+        <option>Carlo</option>
+        <option>Napolitaine</option>
+        <option>Thon</option>
+        <option>Diavola</option>
+        <option>Finocchio</option>
+        <option>1958</option>
+        <option>Scamorza</option>
+        <option>Buffala</option>
+        <option>Speck</option>
+        <option>Sicilienne</option>
+        <option>Prosciutto di tartufo</option>
+        <option>Pistacchio</option>
+        <option>Truffe</option>
+        <option>Pizzaiollo</option>
+    </select>
+
+    <label>Specialties (optional)</label>
+    <select name="specialty">
+        <option value="">No specialty</option>
+        <option>Escalope milanaise de veau</option>
+        <option>Polpettes napolitaines</option>
+        <option>Poulpe grillé comme en Sicile</option>
+        <option>Aubergine à la Parmigiana</option>
+    </select>
+
+    <label>Dessert (optional)</label>
+    <select name="dessert">
+        <option value="">No dessert</option>
+        <option>Dessert maison</option>
+        <option>Coupe glacée</option>
+    </select>
+
+    <label>Notes (optional)</label>
+    <textarea name="notes" rows="3" placeholder="Allergies, preferences…"></textarea>
+
+    <button type="submit">Submit</button>
+</form>
+
+<div class="success" id="successMessage">
+    🎉 Your response has been submitted successfully!
+</div>
+
+<script>
+document.getElementById("surveyForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = {
+        starter: form.starter.value,
+        pasta: form.pasta.value,
+        pizza: form.pizza.value,
+        specialty: form.specialty.value,
+        dessert: form.dessert.value,
+        notes: form.notes.value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbyutHzjfNzO8eYJYqYBll3eWUprE5ema86PvY3w1VSp11RUWLKJIWv5iueQVw4_mQftYQ/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(() => {
+        document.getElementById("successMessage").style.display = "block";
+        form.reset();
+    })
+    .catch(err => alert("Error submitting form: " + err));
+});
+</script>
+
+</body>
+</html>
